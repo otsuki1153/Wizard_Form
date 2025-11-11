@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado - ODS 13</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result-box {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #ffffffcc;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .level {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    .message {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+
+  </style>
+</head>
+<body data-page="resultado">
+  <div class="wrapper">
+    <div class="side-image">
+      <img src="assets/resultado.png" alt="Resultado Sustentável">
+    </div>
+
+    <div class="result-box">
+      <h2>Seu Resultado 🌍</h2>
+      <div id="result-content">
+        <p class="score"></p>
+        <p class="level"></p>
+        <p class="message"></p>
+      </div><br>
+      <a href="index.html" class="btn" onclick="resetPage()">Voltar ao início</a>
+    </div>
+  </div>
+
+    <script>
+        // 🔹 Lê todos os dados salvos por página
+        const data = JSON.parse(localStorage.getItem("sustentabilidade_por_pagina")) || {};
+        
+        // 🔹 Une todos os valores numéricos num só array
+        const answers = Object.values(data).flat().map(v => parseInt(v)).filter(v => !isNaN(v));
+
+        let total = 0;
+        answers.forEach(v => total += v);
+
+        // 🔹 Determina o máximo de pontos possíveis
+        const max = answers.length * 4; // considerando que o maior valor é 4
+        const percent = max > 0 ? Math.round((total / max) * 100) : 0;
+
+        // 🔹 Define o nível e a mensagem
+        let nivel = "";
+        let msg = "";
+
+        if (percent <= 40) {
+            nivel = "🌾 Iniciante Verde";
+            msg = "Você está começando sua jornada sustentável! Pequenas mudanças farão uma grande diferença.";
+        } else if (percent <= 70) {
+            nivel = "🌿 Consciente Ambiental";
+            msg = "Você já demonstra bons hábitos e preocupação com o meio ambiente. Continue evoluindo!";
+        } else if (percent <= 90) {
+            nivel = "🌳 Guardião do Planeta";
+            msg = "Excelente! Suas ações sustentáveis são exemplo para outras pessoas.";
+        } else {
+            nivel = "🌎 Herói da Terra";
+            msg = "Uau! Você vive de forma totalmente alinhada à sustentabilidade. Continue inspirando o mundo!";
+        }
+
+        // 🔹 Atualiza a interface
+        document.querySelector(".score").textContent = `Pontuação: ${percent}%`;
+        document.querySelector(".level").textContent = `Nível: ${nivel}`;
+        document.querySelector(".message").textContent = msg;
+
+        console.log("Total:", total, "Max:", max, "Percent:", percent, "Answers:", answers);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        console.log("Página:", window.location.pathname);
+        console.log("Página atual:", localStorage.getItem("actualPage"));
+        console.log("Respostas atuais:", JSON.parse(localStorage.getItem("sustentabilidadeRespostas")));
+        });
+    </script>
+</body>
+</html>
