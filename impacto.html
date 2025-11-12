@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Impacto Climático - ODS 13</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="impacto">
+  <div class="wrapper">
+    <div class="side-image">
+      <img src="assets/tempo-aberto-sol-nunvens_1.jpg" alt="Mudanças Climáticas">
+    </div>
+
+    <div class="form-card">
+      <div class="progress-bar"><div class="progress"></div></div>
+
+      <div class="form-content">
+        <h2>2. Mudanças Climáticas</h2>
+
+        <label>Você percebeu mudanças no clima da sua cidade nos últimos anos?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">Não sei</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Você já enfrentou eventos extremos (enchentes, calor intenso, secas)?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Na sua opinião, as mudanças climáticas afetam sua região?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Muito</option>
+          <option value="2">Um pouco</option>
+          <option value="1">Não afetam</option>
+        </select>
+
+        <label>Você acredita que as ações humanas influenciam o aquecimento global?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">Parcialmente</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Você acha que governos e empresas estão fazendo o suficiente?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">Mais ou menos</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Você sente que o tema "mudanças climáticas" é falado o suficiente na mídia?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">Às vezes</option>
+          <option value="1">Não</option>
+        </select>
+
+        <div class="buttons">
+          <a href="habitos.html" class="btn prev-btn">Voltar</a>
+          <a href="acoes.html" class="btn next-btn">Próximo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("Página:", window.location.pathname);
+      console.log("Página atual:", localStorage.getItem("actualPage"));
+      console.log("Respostas atuais:", JSON.parse(localStorage.getItem("sustentabilidadeRespostas")));
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

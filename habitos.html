@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Seus hábitos - ODS 13</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="habitos">
+  <div class="wrapper">
+    <div class="side-image">
+      <img src="assets/images.jpeg" alt="Hábitos sustentáveis">
+    </div>
+
+    <div class="form-card">
+      <div class="progress-bar"><div class="progress"></div></div>
+
+      <div class="form-content">
+        <h2>1. Seus hábitos sustentáveis</h2>
+
+        <label>Você costuma economizar energia elétrica?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">Às vezes</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Você separa o lixo reciclável em casa?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sempre</option>
+          <option value="2">Às vezes</option>
+          <option value="1">Nunca</option>
+        </select>
+
+        <label>Com que frequência você usa transporte público, carona ou bicicleta?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="4">Sempre</option>
+          <option value="3">Às vezes</option>
+          <option value="2">Raramente</option>
+          <option value="1">Nunca</option>
+        </select>
+
+        <label>Você evita deixar aparelhos eletrônicos ligados à toa?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sempre</option>
+          <option value="2">Às vezes</option>
+          <option value="1">Raramente</option>
+        </select>
+
+        <label>Você costuma comprar produtos ecológicos ou reciclados?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sim</option>
+          <option value="2">De vez em quando</option>
+          <option value="1">Não</option>
+        </select>
+
+        <label>Você leva sua própria garrafinha ou copo reutilizável?</label>
+        <select required>
+          <option value="">Selecione</option>
+          <option value="3">Sempre</option>
+          <option value="2">Às vezes</option>
+          <option value="1">Nunca</option>
+        </select>
+
+        <div class="buttons">
+          <a href="index.html" class="btn prev-btn">Voltar</a>
+          <a href="impacto.html" class="btn next-btn">Próximo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("Página:", window.location.pathname);
+      console.log("Página atual:", localStorage.getItem("actualPage"));
+      console.log("Respostas atuais:", JSON.parse(localStorage.getItem("sustentabilidadeRespostas")));
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

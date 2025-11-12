@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado - ODS 13</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result-box {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #ffffffcc;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .level {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    .message {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .result-scroll {
+      overflow-y: auto;
+      max-height: 60vh;
+      padding-right: 10px;
+    }
+
+
+  </style>
+</head>
+<body data-page="resultado">
+  <div class="wrapper">
+    <div class="side-image">
+      <img src="assets/resultado.png" alt="Resultado Sustentável">
+    </div>
+
+    <div class="result-box">
+      <h2>Seu Resultado 🌍</h2>
+
+      <div class="result-scroll">
+          <div id="result-content">
+              <p class="score"></p>
+              <p class="level"></p>
+              <p class="message"></p>
+          </div>
+        <!-- As reflexões serão inseridas aqui dinamicamente -->
+      </div>
+
+      <a href="index.html" class="btn" onclick="resetPage()">Voltar ao início</a>
+    </div>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 🔹 Lê todos os dados salvos por página
+        const data = JSON.parse(localStorage.getItem("sustentabilidade_por_pagina")) || {};
+
+        const numericAnswers = [];
+        const textAnswers = [];
+
+        // 🔹 Separa valores numéricos e textuais
+        Object.values(data).forEach(arr => {
+          arr.forEach(v => {
+            if (typeof v === "string" && v.trim().length > 0) {
+              textAnswers.push(v.trim());
+            } else if (!isNaN(parseInt(v))) {
+              numericAnswers.push(parseInt(v));
+            }
+          });
+        });
+
+        // 🔹 Soma total de pontos dos selects
+        let total = 0;
+        numericAnswers.forEach(v => total += v);
+
+        // 🔹 Cada textarea preenchido vale 4 pontos (peso máximo)
+        const textPoints = textAnswers.length * 4;
+        total += textPoints;
+
+        // 🔹 Máximo possível = todos os selects * 4 + todos os textareas * 4
+        const max = (numericAnswers.length + textAnswers.length) * 4;
+
+        // 🔹 Calcula a porcentagem
+        const percent = max > 0 ? Math.round((total / max) * 100) : 0;
+
+        // 🔹 Define nível e mensagem
+        let nivel = "";
+        let msg = "";
+
+        if (percent <= 40) {
+          nivel = "🌾 Iniciante Verde";
+          msg = "Você está começando sua jornada sustentável! Pequenas mudanças farão uma grande diferença.";
+        } else if (percent <= 70) {
+          nivel = "🌿 Consciente Ambiental";
+          msg = "Você já demonstra bons hábitos e preocupação com o meio ambiente. Continue evoluindo!";
+        } else if (percent <= 90) {
+          nivel = "🌳 Guardião do Planeta";
+          msg = "Excelente! Suas ações sustentáveis são exemplo para outras pessoas.";
+        } else {
+          nivel = "🌎 Herói da Terra";
+          msg = "Uau! Você vive de forma totalmente alinhada à sustentabilidade. Continue inspirando o mundo!";
+        }
+
+        // 🔹 Atualiza o resultado
+        document.querySelector(".score").textContent = `Pontuação: ${percent}%`;
+        document.querySelector(".level").textContent = `Nível: ${nivel}`;
+        document.querySelector(".message").textContent = msg;
+
+        console.log("Total:", total, "Max:", max, "Percent:", percent);
+        console.log("Selects:", numericAnswers, "Textos:", textAnswers);
+
+        // 🔹 Exibe as respostas escritas
+        if (textAnswers.length > 0) {
+          const reflexaoDiv = document.createElement("div");
+          reflexaoDiv.classList.add("reflexao-box");
+          reflexaoDiv.innerHTML = `
+            <h3>🌱 Suas Reflexões</h3>
+            <div class="reflexao-list">
+              ${textAnswers.map(t => `
+                <div class="reflexao-item">
+                  <span class="aspas">❝</span> ${t} <span class="aspas">❞</span>
+                </div>
+              `).join("")}
+            </div>
+          `;
+          document.querySelector(".result-scroll").appendChild(reflexaoDiv);
+        }
+      });
+    </script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        console.log("Página:", window.location.pathname);
+        console.log("Página atual:", localStorage.getItem("actualPage"));
+        console.log("Respostas atuais:", JSON.parse(localStorage.getItem("sustentabilidadeRespostas")));
+        });
+    </script>
+</body>
+</html>
